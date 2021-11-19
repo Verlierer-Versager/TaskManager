@@ -785,8 +785,8 @@ false Z
 false Zulu
 false posixrules
 </TimeZones>
-      <IntrospectionStateNumber>545</IntrospectionStateNumber>
-      <StartupTime>1637240571</StartupTime>
+      <IntrospectionStateNumber>571</IntrospectionStateNumber>
+      <StartupTime>1637304426</StartupTime>
     </root>
     <database id="2" parent="1" name="db1">
       <ObjectId>16394</ObjectId>
@@ -801,7 +801,7 @@ false posixrules
 13018||-9223372036854775808|U|G
 13018||10|U|G</Grants>
       <Owner>evelina</Owner>
-      <IntrospectionStateNumber>546</IntrospectionStateNumber>
+      <IntrospectionStateNumber>572</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16419|16421|1
 sequence|table|16430|16432|1
@@ -812,13 +812,39 @@ sequence|table|16430|16432|1
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
     </database>
-    <role id="4" parent="1" name="pg_signal_backend">
-      <ObjectId>4200</ObjectId>
+    <role id="4" parent="1" name="evelina">
+      <ObjectId>16393</ObjectId>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
     </role>
-    <role id="5" parent="1" name="pg_read_server_files">
+    <role id="5" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
+    </role>
+    <role id="6" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+      <RoleGrants>3374
+3375
+3377</RoleGrants>
+    </role>
+    <role id="7" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+    </role>
+    <role id="8" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+    </role>
+    <role id="9" parent="1" name="pg_read_server_files">
       <ObjectId>4569</ObjectId>
     </role>
-    <role id="6" parent="1" name="postgres">
+    <role id="10" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+    </role>
+    <role id="11" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+    </role>
+    <role id="12" parent="1" name="pg_write_server_files">
+      <ObjectId>4570</ObjectId>
+    </role>
+    <role id="13" parent="1" name="postgres">
       <ObjectId>10</ObjectId>
       <CreateDb>1</CreateDb>
       <CreateRole>1</CreateRole>
@@ -826,32 +852,6 @@ sequence|table|16430|16432|1
       <SuperRole>1</SuperRole>
       <Replication>1</Replication>
       <BypassRls>1</BypassRls>
-    </role>
-    <role id="7" parent="1" name="pg_write_server_files">
-      <ObjectId>4570</ObjectId>
-    </role>
-    <role id="8" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
-    </role>
-    <role id="9" parent="1" name="pg_read_all_stats">
-      <ObjectId>3375</ObjectId>
-    </role>
-    <role id="10" parent="1" name="evelina">
-      <ObjectId>16393</ObjectId>
-      <CreateDb>1</CreateDb>
-      <CanLogin>1</CanLogin>
-    </role>
-    <role id="11" parent="1" name="pg_monitor">
-      <ObjectId>3373</ObjectId>
-      <RoleGrants>3374
-3375
-3377</RoleGrants>
-    </role>
-    <role id="12" parent="1" name="pg_read_all_settings">
-      <ObjectId>3374</ObjectId>
-    </role>
-    <role id="13" parent="1" name="pg_stat_scan_tables">
-      <ObjectId>3377</ObjectId>
     </role>
     <tablespace id="14" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
@@ -879,7 +879,7 @@ sequence|table|16430|16432|1
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>546</IntrospectionStateNumber>
+      <IntrospectionStateNumber>572</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="19" parent="2" name="plpgsql">
@@ -995,13 +995,13 @@ sequence|table|16430|16432|1
     <table id="33" parent="18" name="tasks">
       <ObjectId>16432</ObjectId>
       <Owner>evelina</Owner>
-      <StateNumber>528</StateNumber>
+      <StateNumber>566</StateNumber>
       <AccessMethodId>2</AccessMethodId>
     </table>
     <table id="34" parent="18" name="users">
       <ObjectId>16421</ObjectId>
       <Owner>evelina</Owner>
-      <StateNumber>520</StateNumber>
+      <StateNumber>562</StateNumber>
       <AccessMethodId>2</AccessMethodId>
     </table>
     <column id="35" parent="33" name="task_id">
@@ -1012,9 +1012,33 @@ sequence|table|16430|16432|1
       <DefaultExpression>nextval(&apos;tasks_task_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <index id="36" parent="33" name="tasks_pk">
+    <column id="36" parent="33" name="title">
+      <Position>2</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <StateNumber>550</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="37" parent="33" name="status">
+      <Position>3</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <StateNumber>566</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="38" parent="33" name="description">
+      <Position>4</Position>
+      <DataType>varchar(2000)|0s</DataType>
+      <StateNumber>557</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="39" parent="33" name="user_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>561</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="40" parent="33" name="tasks_pk">
       <ObjectId>16437</ObjectId>
-      <StateNumber>530</StateNumber>
+      <StateNumber>566</StateNumber>
       <ColNames>task_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1022,23 +1046,33 @@ sequence|table|16430|16432|1
       <ClassIds>1978</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="37" parent="33" name="tasks_task_id_uindex">
+    <index id="41" parent="33" name="tasks_task_id_uindex">
       <ObjectId>16436</ObjectId>
-      <StateNumber>529</StateNumber>
+      <StateNumber>566</StateNumber>
       <ColNames>task_id</ColNames>
       <Unique>1</Unique>
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="38" parent="33" name="tasks_pk">
+    <key id="42" parent="33" name="tasks_pk">
       <ObjectId>16438</ObjectId>
       <StateNumber>530</StateNumber>
       <ColNames>task_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>tasks_pk</UnderlyingIndexName>
     </key>
-    <column id="39" parent="34" name="user_id">
+    <foreign-key id="43" parent="33" name="user_id">
+      <ObjectId>16450</ObjectId>
+      <StateNumber>562</StateNumber>
+      <ColNames>user_id</ColNames>
+      <RefTableId>16421</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pk</RefKeyName>
+      <RefColNames>user_id</RefColNames>
+    </foreign-key>
+    <column id="44" parent="34" name="user_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1046,21 +1080,21 @@ sequence|table|16430|16432|1
       <DefaultExpression>nextval(&apos;users_user_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="40" parent="34" name="login">
+    <column id="45" parent="34" name="login">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>520</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="41" parent="34" name="password">
+    <column id="46" parent="34" name="password">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>520</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="42" parent="34" name="users_pk">
+    <index id="47" parent="34" name="users_pk">
       <ObjectId>16428</ObjectId>
       <StateNumber>524</StateNumber>
       <ColNames>user_id</ColNames>
@@ -1070,7 +1104,7 @@ sequence|table|16430|16432|1
       <ClassIds>1978</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="43" parent="34" name="users_user_id_uindex">
+    <index id="48" parent="34" name="users_user_id_uindex">
       <ObjectId>16427</ObjectId>
       <StateNumber>523</StateNumber>
       <ColNames>user_id</ColNames>
@@ -1079,7 +1113,7 @@ sequence|table|16430|16432|1
       <ClassIds>1978</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="44" parent="34" name="users_login_uindex">
+    <index id="49" parent="34" name="users_login_uindex">
       <ObjectId>16425</ObjectId>
       <StateNumber>521</StateNumber>
       <ColNames>login</ColNames>
@@ -1089,7 +1123,7 @@ sequence|table|16430|16432|1
       <ClassIds>3126</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="45" parent="34" name="users_password_uindex">
+    <index id="50" parent="34" name="users_password_uindex">
       <ObjectId>16426</ObjectId>
       <StateNumber>522</StateNumber>
       <ColNames>password</ColNames>
@@ -1099,7 +1133,7 @@ sequence|table|16430|16432|1
       <ClassIds>3126</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="46" parent="34" name="users_pk">
+    <key id="51" parent="34" name="users_pk">
       <ObjectId>16429</ObjectId>
       <StateNumber>524</StateNumber>
       <ColNames>user_id</ColNames>

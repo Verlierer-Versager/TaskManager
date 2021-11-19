@@ -18,8 +18,8 @@ public class UserManager {
         authorizeStatement.setString(1, login);
         authorizeStatement.setString(2, password);
         ResultSet resultSet = authorizeStatement.executeQuery();
-        if (!resultSet.wasNull()) {
-            resultSet.next();
+        if (resultSet.next()) {
+            //resultSet.next();
             return resultSet.getInt("user_id");
         }
         return -1;
@@ -30,7 +30,7 @@ public class UserManager {
         PreparedStatement registerStatement = connection.prepareStatement(register);
         registerStatement.setString(1, login);
         registerStatement.setString(2, password);
-        System.out.println(registerStatement);
+        //System.out.println(registerStatement);
         if(!findByLogin(login)) {
             registerStatement.executeUpdate();
             return true;
