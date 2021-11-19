@@ -9,14 +9,14 @@ import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            UserManager userManager = new UserManager();
-            //.out.println(userManager.authorizeUser("a", "a"));
-            System.out.println(userManager.findByLogin("d"));
-            System.out.println(userManager.registerUser("c", "c"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            UserManager userManager = new UserManager();
+//            //.out.println(userManager.authorizeUser("a", "a"));
+//            System.out.println(userManager.findByLogin("d"));
+//            System.out.println(userManager.registerUser("c", "c"));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
 
 //        try (

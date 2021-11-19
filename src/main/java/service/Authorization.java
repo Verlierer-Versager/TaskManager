@@ -1,3 +1,5 @@
+package service;
+
 import manager.UserManager;
 
 import java.sql.SQLException;

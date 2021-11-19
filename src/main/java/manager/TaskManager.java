@@ -16,14 +16,14 @@ public class TaskManager {
     public TaskManager() throws SQLException {
     }
 
-    public boolean createTask(Task task) throws SQLException {
-        String create = "INSERT INTO tasks (title, status, description, user_id)  VALUES (?, ?, ?, ?)";
+    public int createTask(Task task) throws SQLException {
+        String create = "INSERT INTO tasks (title, status, description, user_id)  VALUES (?, ?, ?, ?) RETURNING task_id";
         PreparedStatement createStatement = connection.prepareStatement(create);
         createStatement.setString(1, task.name);
         createStatement.setString(2, String.valueOf(task.status.ordinal()));
         createStatement.setString(3, task.description);
         createStatement.setString(4, String.valueOf(task.owner_id));
-        return createStatement.executeUpdate() > 0;
+        return createStatement.executeUpdate();
         //return false;
     }
 
@@ -57,6 +57,15 @@ public class TaskManager {
         findStatement.setString(1, String.valueOf(user_id));
         return findStatement.executeQuery();
         //resultSet.next();
+    }
+
+    public void updateTask(String column, String value, int task_id) throws SQLException {
+        String update = "UPDATE tasks SET (?)=? WHERE task_id=?";
+        PreparedStatement updateStatement = connection.prepareStatement(update);
+        updateStatement.setString(1, column);
+        updateStatement.setString(2, value);
+        updateStatement.setString(3, String.valueOf(task_id));
+
     }
 
 
