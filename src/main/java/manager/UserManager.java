@@ -25,17 +25,19 @@ public class UserManager {
         return -1;
     }
 
-    public boolean registerUser(String login, String password) throws SQLException {
-        String register = "INSERT INTO users (login, password)  VALUES (?, ?)";
+    public int registerUser(String login, String password) throws SQLException {
+        String register = "INSERT INTO users (login, password)  VALUES (?, ?) RETURNING user_id";
         PreparedStatement registerStatement = connection.prepareStatement(register);
         registerStatement.setString(1, login);
         registerStatement.setString(2, password);
         //System.out.println(registerStatement);
         if(!findByLogin(login)) {
-            registerStatement.executeUpdate();
-            return true;
+            ResultSet resultSet = registerStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+            //return true;
         }
-        return false;
+        return -1;
     }
 
     public boolean findByLogin(String login) throws SQLException {

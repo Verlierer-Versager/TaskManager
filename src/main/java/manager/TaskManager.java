@@ -20,10 +20,12 @@ public class TaskManager {
         String create = "INSERT INTO tasks (title, status, description, user_id)  VALUES (?, ?, ?, ?) RETURNING task_id";
         PreparedStatement createStatement = connection.prepareStatement(create);
         createStatement.setString(1, task.name);
-        createStatement.setString(2, String.valueOf(task.status.ordinal()));
+        createStatement.setString(2, String.valueOf(task.status));
         createStatement.setString(3, task.description);
         createStatement.setInt(4, task.owner_id);
-        return createStatement.executeUpdate();
+        ResultSet resultSet = createStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt(1);
         //return false;
     }
 

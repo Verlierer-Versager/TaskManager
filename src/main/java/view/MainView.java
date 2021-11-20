@@ -1,8 +1,10 @@
 package view;
 
+import model.Task;
 import service.MainService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainView {
@@ -11,7 +13,7 @@ public class MainView {
 
     public MainView() throws SQLException {
     }
-
+//попроавить кэйсы
     public void start() {
         //Scanner scanner = new Scanner(System.in);
         System.out.println("Добро пожаловать!\n" +
@@ -20,7 +22,7 @@ public class MainView {
                 "2. Зарегестрироваться");
         String action = scanner.next();
         boolean isCorrect = false;
-        while (!isCorrect) {
+        do {
             switch (action) {
                 case "1":
                     authorization();
@@ -32,22 +34,26 @@ public class MainView {
                     break;
                 default:
                     System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
                     break;
             }
-            System.out.println("Попробуйте снова!");
-            action = scanner.next();
-        }
+        } while (!isCorrect);
+        action();
+    }
+
+    public void action() {
         System.out.println("Выберите действие:\n" +
                 "1. Создать новую задачу\n" +
                 "2. Отобразить список текущих задач\n" +
                 "3. Выйти из системы");
-        action = scanner.next();
-        isCorrect = false;
+        String action = scanner.next();
+        boolean isCorrect = false;
         while (!isCorrect) {
-            switch (action){
+            switch (action) {
                 case "1":
                     create();
-                    isCorrect =true;
+                    isCorrect = true;
                     break;
                 case "2":
                     showAll();
@@ -105,15 +111,94 @@ public class MainView {
     }
 
     public void create() {
-
+        System.out.println("Введите название задачи");
+        String name = scanner.next();
+        System.out.println("Введите описание задачи");
+        String description = scanner.next();
+        mainService.createTask(name, description);
+        action();
     }
 
     public void showAll() {
+        System.out.println("Список задач");
+        List<Task> list = mainService.getCurrentUserTasks();
+        int i = 1;
+        for (Task task : list) {
+            System.out.println(i + ". " + task.name);
+            i++;
+        }
+        System.out.println("Для перехода к конкретной задаче введите 1\n" +
+                "Для выхода в меню введите 2");
 
+        String action = scanner.next();
+        boolean isCorrect = false;
+        while (!isCorrect) {
+            switch (action) {
+                case "1":
+                    System.out.print("Введите номер задачи: ");
+                    selectTask(scanner.nextInt());
+                    isCorrect = true;
+                    break;
+                case "2":
+                    action();
+                    isCorrect = true;
+                    break;
+                default:
+                    System.out.println("Ошибка ввода!");
+                    break;
+            }
+            System.out.println("Попробуйте снова!");
+            action = scanner.next();
+        }
     }
 
     public void signOut() {
         mainService.signOut();
         start();
+    }
+
+    public void selectTask(int index) {
+        Task task = mainService.getCurrentUserTasks().get(index);
+        System.out.println("Название: " +  task.name + "\n" +
+                "Описание: " + task.description + "\n" +
+                "Статус: " + task.status);
+        //изменит
+        //удалить
+        System.out.println("Выберите действие:\n" +
+                "1. Изменить задачу\n" +
+                "2. Удалить задачу\n" +
+                "3. Вернуться к списку");
+        String action = scanner.next();
+        boolean isCorrect = false;
+        while (!isCorrect) {
+            switch (action) {
+                case "1":
+                    //System.out.print("Введите номер задачи: ");
+                    update();
+                    isCorrect = true;
+                    break;
+                case "2":
+                    delete();
+                    isCorrect = true;
+                    break;
+                case "3":
+                    showAll();
+                    isCorrect = true;
+                    break;
+                default:
+                    System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
+                    break;
+            }
+        }
+    }
+
+    public void update() {
+
+    }
+
+    public void delete() {
+
     }
 }

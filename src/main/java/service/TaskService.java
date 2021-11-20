@@ -39,7 +39,7 @@ public class TaskService {
         while (resultSet.next()) {
             list.add(new Task(resultSet.getInt("task_id"),
                 resultSet.getString("title"),
-                Status.valueOf(resultSet.getString("status")),
+                Enum.valueOf(Status.class, resultSet.getString("status")),
                 resultSet.getString("description"),
                 resultSet.getInt("user_id")));
         }

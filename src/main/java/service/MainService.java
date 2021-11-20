@@ -13,6 +13,7 @@ public class MainService {
     public final Authorization authorization = new Authorization();
     @Getter
     private int currentUserId = -1; //подумать
+    @Getter
     private List<Task> currentUserTasks;
 
     //авторизация юзера --
@@ -33,7 +34,7 @@ public class MainService {
             int id = authorization.authorizeUser(login, password);
             if (id != -1) {
                 currentUserId = id;
-                getCurrentUserTasks();
+                getTasks();
                 return true;
             }
         } catch (SQLException e) {
@@ -44,7 +45,8 @@ public class MainService {
 
     public boolean registerUser(String login, String password) {
         try {
-            return authorization.registerUser(login, password);
+            currentUserId =  authorization.registerUser(login, password);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,18 +55,19 @@ public class MainService {
 
     public void signOut() {
         currentUserId = -1;
+        currentUserTasks = new ArrayList<>();
     }
 
-    public void createTask(String name, Status status, String description) {
+    public void createTask(String name, String description) {
         try {
-            currentUserTasks.add(taskService.createTask(name, status, description, currentUserId));
+            currentUserTasks.add(taskService.createTask(name, Status.WAITING_FOR_EXECUTION, description, currentUserId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         //getCurrentUserTasks();
     }
 
-    private void getCurrentUserTasks() {
+    private void getTasks() {
         try {
             currentUserTasks = taskService.taskList(currentUserId); //где-то должна быть проверка id
         } catch (SQLException e) {
