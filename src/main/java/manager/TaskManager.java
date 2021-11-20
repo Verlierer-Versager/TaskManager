@@ -32,16 +32,16 @@ public class TaskManager {
     public boolean deleteTask(int task_id) throws SQLException {
         String delete = "DELETE FROM tasks WHERE task_id=?";
         PreparedStatement deleteStatement = connection.prepareStatement(delete);
-        deleteStatement.setString(1, String.valueOf(task_id));
+        deleteStatement.setInt(1, task_id);
         //System.out.println();
-        return deleteStatement.executeUpdate() > 0;
+        return deleteStatement.execute();
         //return false;
     }
 
     public ResultSet getTask(int task_id) throws SQLException {
         String find = "SELECT * FROM tasks WHERE task_id=?";
         PreparedStatement findStatement = connection.prepareStatement(find);
-        findStatement.setString(1, String.valueOf(task_id));
+        findStatement.setInt(1, task_id);
         return findStatement.executeQuery();
 
 //        resultSet.next();
@@ -54,7 +54,7 @@ public class TaskManager {
     }
 
     public ResultSet getAllTasks(int user_id) throws SQLException {
-        String find = "SELECT * FROM tasks WHERE user_id=?";
+        String find = "SELECT * FROM tasks WHERE user_id=? ORDER BY task_id";
         PreparedStatement findStatement = connection.prepareStatement(find);
         findStatement.setInt(1, user_id);
         return findStatement.executeQuery();
@@ -62,12 +62,12 @@ public class TaskManager {
     }
 
     public void updateTask(String column, String value, int task_id) throws SQLException {
-        String update = "UPDATE tasks SET (?)=? WHERE task_id=?";
+        String update = "UPDATE tasks SET " + column + "=? WHERE task_id=?";
         PreparedStatement updateStatement = connection.prepareStatement(update);
-        updateStatement.setString(1, column);
-        updateStatement.setString(2, value);
-        updateStatement.setString(3, String.valueOf(task_id));
-
+        //updateStatement.setString(1, column);
+        updateStatement.setString(1, value);
+        updateStatement.setInt(2, task_id);
+        updateStatement.executeUpdate();
     }
 
 

@@ -78,6 +78,7 @@ public class MainService {
     public void updateTask(String column, String value, int task_id) {
         try {
             taskService.updateTask(column, value, task_id);
+            getTasks();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package view;
 
+import model.Status;
 import model.Task;
 import service.MainService;
 
@@ -65,10 +66,10 @@ public class MainView {
                     break;
                 default:
                     System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
                     break;
             }
-            System.out.println("Попробуйте снова!");
-            action = scanner.next();
         }
     }
 
@@ -92,7 +93,7 @@ public class MainView {
 
     public void registration() {
         System.out.println("Регистрация!\n" +
-                "Длина логина и пороля должна быть 5-10 символов");
+                "Длина логина и пароля должна быть 5-10 символов");
         System.out.print("Введите логин: ");
         String login = scanner.next();
         System.out.print("Введите пароль: ");
@@ -136,7 +137,7 @@ public class MainView {
             switch (action) {
                 case "1":
                     System.out.print("Введите номер задачи: ");
-                    selectTask(scanner.nextInt());
+                    selectTask(scanner.nextInt() - 1);
                     isCorrect = true;
                     break;
                 case "2":
@@ -145,11 +146,12 @@ public class MainView {
                     break;
                 default:
                     System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
                     break;
             }
-            System.out.println("Попробуйте снова!");
-            action = scanner.next();
         }
+        showAll();
     }
 
     public void signOut() {
@@ -174,11 +176,11 @@ public class MainView {
             switch (action) {
                 case "1":
                     //System.out.print("Введите номер задачи: ");
-                    update();
+                    update(task);
                     isCorrect = true;
                     break;
                 case "2":
-                    delete();
+                    delete(task);
                     isCorrect = true;
                     break;
                 case "3":
@@ -194,11 +196,76 @@ public class MainView {
         }
     }
 
-    public void update() {
-
+    public void update(Task task) {
+        System.out.println("Выберите поле для изменения:\n" +
+                "1. Название\n" +
+                "2. Описание\n" +
+                "3. Статус");
+        String action = scanner.next();
+        boolean isCorrect = false;
+        while (!isCorrect) {
+            switch (action) {
+                case "1":
+                    System.out.print("Введите новое название: ");
+                    String name = scanner.next();
+                    mainService.updateTask("title", name, task.id);
+                    isCorrect = true;
+                    break;
+                case "2":
+                    System.out.print("Введите новое описание: ");
+                    String description = scanner.next();
+                    mainService.updateTask("description", description, task.id);
+                    isCorrect = true;
+                    break;
+                case "3":
+                    status(task);
+                    isCorrect = true;
+                    break;
+                default:
+                    System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
+                    break;
+            }
+        }
     }
 
-    public void delete() {
+    public void delete(Task task) {
+        mainService.deleteTask(task.id);
+    }
 
+    public void status(Task task) {
+        System.out.println("Выберите статус:\n" +
+                "1. Приостановлен\n" +
+                "2. В процессе\n" +
+                "3. Завершен\n" +
+                "4. Ожидает выполнения");
+        String action = scanner.next();
+        boolean isCorrect = false;
+        while (!isCorrect) {
+            switch (action) {
+                case "1":
+                    mainService.updateTask("status", "HIATUS", task.id);
+                    isCorrect = true;
+                    break;
+                case "2":
+                    mainService.updateTask("status", "IN_PROCESS", task.id);
+                    isCorrect = true;
+                    break;
+                case "3":
+                    mainService.updateTask("status", "COMPLETED", task.id);
+                    isCorrect = true;
+                    break;
+                case "4":
+                    mainService.updateTask("status", "WAITING_FOR_EXECUTION", task.id);
+                    isCorrect = true;
+                    break;
+                default:
+                    System.out.println("Ошибка ввода!");
+                    System.out.println("Попробуйте снова!");
+                    action = scanner.next();
+                    break;
+            }
+        }
     }
 }
