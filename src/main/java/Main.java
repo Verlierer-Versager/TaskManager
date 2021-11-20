@@ -1,6 +1,8 @@
 import manager.TaskManager;
 import manager.UserManager;
+import service.MainService;
 import utils.DatabaseConnector;
+import view.MainView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +11,13 @@ import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            MainView mainView = new MainView();
+            mainView.start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 //        try {
 //            UserManager userManager = new UserManager();
 //            //.out.println(userManager.authorizeUser("a", "a"));
@@ -41,4 +50,4 @@ public class Main {
 
 
     }
-}
+

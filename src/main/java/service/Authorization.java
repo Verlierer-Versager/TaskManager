@@ -17,7 +17,7 @@ public class Authorization {
 
     //уточнить как быть с ошибками скл
     public boolean registerUser(String login, String password) throws SQLException {
-        if (login.length() > 3 && password.length() >= 5) {
+        if (login.length() >= 5 && password.length() >= 5 && login.length() <= 10 && password.length() <= 10) {
             return userManager.registerUser(login, password); //изменить на хэш
         }
         return false;

@@ -22,7 +22,7 @@ public class TaskManager {
         createStatement.setString(1, task.name);
         createStatement.setString(2, String.valueOf(task.status.ordinal()));
         createStatement.setString(3, task.description);
-        createStatement.setString(4, String.valueOf(task.owner_id));
+        createStatement.setInt(4, task.owner_id);
         return createStatement.executeUpdate();
         //return false;
     }
@@ -54,7 +54,7 @@ public class TaskManager {
     public ResultSet getAllTasks(int user_id) throws SQLException {
         String find = "SELECT * FROM tasks WHERE user_id=?";
         PreparedStatement findStatement = connection.prepareStatement(find);
-        findStatement.setString(1, String.valueOf(user_id));
+        findStatement.setInt(1, user_id);
         return findStatement.executeQuery();
         //resultSet.next();
     }
