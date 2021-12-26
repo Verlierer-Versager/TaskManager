@@ -13,8 +13,8 @@ public class TaskManager {
 
     public final Connection connection = DatabaseConnector.getConnection();
 
-    public TaskManager() throws SQLException {
-    }
+//    public TaskManager() throws SQLException {
+//    }
 
     public int createTask(Task task) throws SQLException {
         String create = "INSERT INTO tasks (title, status, description, user_id)  VALUES (?, ?, ?, ?) RETURNING task_id";
@@ -38,6 +38,7 @@ public class TaskManager {
         //return false;
     }
 
+    //опасно
     public ResultSet getTask(int task_id) throws SQLException {
         String find = "SELECT * FROM tasks WHERE task_id=?";
         PreparedStatement findStatement = connection.prepareStatement(find);
@@ -61,6 +62,7 @@ public class TaskManager {
         //resultSet.next();
     }
 
+    //проверка пользователя
     public void updateTask(String column, String value, int task_id) throws SQLException {
         String update = "UPDATE tasks SET " + column + "=? WHERE task_id=?";
         PreparedStatement updateStatement = connection.prepareStatement(update);

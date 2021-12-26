@@ -19,9 +19,9 @@ public class TaskService {
 //        this.taskList = taskList;
 //    }
 
-    public TaskService() throws SQLException {
-
-    }
+//    public TaskService() throws SQLException {
+//
+//    }
 
     public Task recreate(Task task, int id) {
         return new Task(id, task.name, task.status, task.description, task.owner_id);

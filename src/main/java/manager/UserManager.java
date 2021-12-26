@@ -1,15 +1,17 @@
 package manager;
 
+import lombok.NonNull;
 import utils.DatabaseConnector;
 
 import java.sql.*;
 
 public class UserManager {
+    @NonNull
     public final Connection connection = DatabaseConnector.getConnection();
 
 
-    public UserManager() throws SQLException {
-    }
+//    public UserManager() throws SQLException {
+//    }
 
     public int authorizeUser(String login, String password) throws SQLException {
         String authorize = "SELECT * FROM users WHERE login=? AND password=?";

@@ -8,8 +8,8 @@ public class Authorization {
 
     public final UserManager userManager = new UserManager();
 
-    public Authorization() throws SQLException {
-    }
+//    public Authorization() throws SQLException {
+//    }
 
     public int authorizeUser(String login, String password) throws SQLException {
         return userManager.authorizeUser(login, password);

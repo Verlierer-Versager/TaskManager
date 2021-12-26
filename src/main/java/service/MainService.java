@@ -26,8 +26,8 @@ public class MainService {
     //изменение таска --
     //смена пользователя --
 
-    public MainService() throws SQLException {
-    }
+//    public MainService() throws SQLException {
+//    }
 
     public boolean authorizeUser(String login, String password) {
         try {
@@ -46,11 +46,12 @@ public class MainService {
     public boolean registerUser(String login, String password) {
         try {
             currentUserId =  authorization.registerUser(login, password);
-            return true;
+            //return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return currentUserId > -1;
+        //return false;
     }
 
     public void signOut() {
@@ -87,6 +88,7 @@ public class MainService {
     public void deleteTask(int task_id) {
         try {
             taskService.deleteTask(task_id);
+            getTasks();
         } catch (SQLException e) {
             e.printStackTrace();
         }
