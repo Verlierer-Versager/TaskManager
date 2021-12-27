@@ -77,6 +77,7 @@ public class MainService {
     }
 
     public void updateTask(String column, String value, int task_id) {
+        //тут должна быть проверка id владельца таска и id того, кто собирается изменить
         try {
             taskService.updateTask(column, value, task_id);
             getTasks();
@@ -86,6 +87,7 @@ public class MainService {
     }
 
     public void deleteTask(int task_id) {
+        //тут должна быть проверка id владельца таска и id того, кто собирается удалить
         try {
             taskService.deleteTask(task_id);
             getTasks();
@@ -93,5 +95,9 @@ public class MainService {
             e.printStackTrace();
         }
     }
+
+//    public String getCurrentUserName() {
+//
+//    }
 
 }

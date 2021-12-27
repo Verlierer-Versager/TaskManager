@@ -13,10 +13,15 @@ import java.net.http.HttpResponse;
 import java.sql.SQLException;
 
 public class LoginServlet extends HttpServlet {
-    public final MainService mainService = new MainService();
+    public static final MainService mainService = new MainService();
 
 //    public LoginServlet() throws SQLException {
 //    }
+
+
+    public static MainService getMainService() {
+        return mainService;
+    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("index.jsp").forward(request, response);
